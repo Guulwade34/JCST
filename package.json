@@ -1,0 +1,43 @@
+{
+  "name": "jcst-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10.9.0"
+  },
+  "scripts": {
+    "build": "npm run build -w @jcst/shared && npm run build -w @jcst/server && npm run build -w @jcst/client",
+    "dev": "npm run build -w @jcst/shared && concurrently -n server,client -c auto \"npm run dev -w @jcst/server\" \"npm run dev -w @jcst/client\"",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run build -w @jcst/shared && npm run test -w @jcst/server && npm run test -w @jcst/client",
+    "test:coverage": "npm run build -w @jcst/shared && npm run test:coverage -w @jcst/server && npm run test:coverage -w @jcst/client",
+    "typecheck": "npm run build -w @jcst/shared && npm run typecheck -w @jcst/server && npm run typecheck -w @jcst/client",
+    "seed:admin": "npm run build -w @jcst/shared && npm run seed:admin -w @jcst/server",
+    "seed:website": "npm run build -w @jcst/shared && npm run seed:website -w @jcst/server",
+    "seed": "npm run seed:admin && npm run seed:website && npm run seed:about",
+    "seed:website:force": "npm run build -w @jcst/shared && npm run seed:website -w @jcst/server -- --force",
+    "seed:about": "npm run build -w @jcst/shared && npm run seed:about -w @jcst/server"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.2",
+    "concurrently": "10.0.3",
+    "eslint": "9.39.2",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.3",
+    "globals": "17.7.0",
+    "prettier": "3.9.5",
+    "typescript-eslint": "8.63.0"
+  },
+  "dependencies": {
+    "lucide-react": "^1.24.0"
+  }
+}
